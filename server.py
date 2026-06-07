@@ -45,4 +45,15 @@ def delete_contact(id: int):
     conn.execute("DELETE FROM contacts WHERE id = ?", (id,))
     conn.commit()
     conn.close()
-    return {"message": "Contact deleted!", "id": id}
+
+
+@app.get("/contacts/id/{id}")
+def get_contact(id: int):
+    conn = get_db()
+    contact = conn.execute(
+        "SELECT * FROM contacts WHERE id = ?", (id,)).fetchone()
+    conn.close()
+    if contact:
+        return {"contact": dict(contact)}
+    else:
+        return {"message": "Contact not found"}
