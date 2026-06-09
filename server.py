@@ -57,3 +57,12 @@ def get_contact(id: int):
         return {"contact": dict(contact)}
     else:
         return {"message": "Contact not found"}
+
+
+@app.get("/contacts/update/{id}/{phone}")
+def update_contact(id: int, phone: str):
+    conn = get_db()
+    conn.execute("UPDATE contacts set phone = ? WHERE id =?", (phone, id))
+    conn.commit()
+    conn.close()
+    return {"message": "Contact updated!", "id": id, "phone": phone}
