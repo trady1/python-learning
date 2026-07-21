@@ -15,3 +15,9 @@ for ticker in tickers:
 
 portfolio_return = sum([23.10, 5.14, -5.66, -1.63]) / 4
 print(f"Portfolio return: {portfolio_return:.2f}%")
+
+risk = returns.std()
+
+print("\n--- Risk (Standard Deviation) ---")
+for ticker in tickers:
+    print(f"{ticker}: {risk[ticker]:.2f}%")
